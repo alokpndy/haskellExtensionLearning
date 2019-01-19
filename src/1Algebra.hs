@@ -1,7 +1,7 @@
 module Algebra where
 
 import GHC.Word
-
+import Data.Maybe
 
 -- | Cardinality -- the number of inhabitants it has ignoring
 --   bottoms (undefined)
@@ -82,15 +82,21 @@ emptyBoard = TicTacToe
   Nothing Nothing Nothing
 
 data Three = One | Two | Three
-  deriving (Eq, Ord, Enum, Bounded)
+  deriving (Eq, Ord, Enum, Bounded, Show)
 
 data TicTacToe2 a = TicTacToe2
   { board :: Three -> Three -> a
-  }
+  } 
 
 emptyBoard2 :: TicTacToe2 (Maybe Bool)
 emptyBoard2 =
   TicTacToe2 $ const $ const Nothing
   
+
+winnerBoard :: TicTacToe2 ( Maybe Bool)
+winnerBoard =
+  TicTacToe2 $ (const . (const . test)) (Just True) 
   
 
+test :: Three -> Three -> Maybe Bool
+test x y =  if (==) x y then Just True else Nothing

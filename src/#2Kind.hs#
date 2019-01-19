@@ -59,7 +59,14 @@ type family MMap (x :: a -> b) ( i :: [a]) :: [b] where
 -- Bar :: TYPE -> TYPE -> Bool -> Bool -> Bool
 
 
+data UserType = User | Admin
+data User = UserA { userAdmin :: Maybe (Proxy 'Admin) }
 
+type family Yak (x :: UserType) :: Bool where
+  Yak 'User =  'False
+  Yak 'Admin = 'True
+
+  -- :kind! Yak 'Admin  = 'True
   
 
 

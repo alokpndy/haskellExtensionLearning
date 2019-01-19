@@ -25,6 +25,12 @@ working f a = apply
 --  :t fmap @Maybe
 -- fmap @Maybe :: (a -> b) -> Maybe a -> Maybe b
 
+data Foo f = Foo { foo :: f String, bar :: f Int }
+
+
+
+
+
 {--
 There are two rules to keep in mind when thining about type applications.
 1. types are applied in the same order they appear in a type signature

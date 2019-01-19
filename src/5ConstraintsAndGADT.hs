@@ -77,3 +77,13 @@ hLength (_ :# ts) = 1 + hLength ts
 hHead :: HList (t ': ts) -> t
 hHead (t :# _) = t
 
+
+
+data Nat = Zero | Succ Nat deriving Show
+type family Add (m :: Nat) (n :: Nat) :: Nat where
+  Add Zero n = n
+  Add (Succ m) n = Add m (Succ n)
+
+data SNat :: Nat -> * where
+  Zy :: SNat Zero
+  Suc :: SNat m -> SNat (Succ m)

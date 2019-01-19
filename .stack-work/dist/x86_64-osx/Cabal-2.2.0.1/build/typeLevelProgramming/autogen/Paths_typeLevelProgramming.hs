@@ -29,12 +29,12 @@ version :: Version
 version = Version [0,1,0,0] []
 bindir, libdir, dynlibdir, datadir, libexecdir, sysconfdir :: FilePath
 
-bindir     = "/Users/alokpandey/Haskell/Type Level Programming/typeLevelProgramming/.stack-work/install/x86_64-osx/lts-12.13/8.4.3/bin"
-libdir     = "/Users/alokpandey/Haskell/Type Level Programming/typeLevelProgramming/.stack-work/install/x86_64-osx/lts-12.13/8.4.3/lib/x86_64-osx-ghc-8.4.3/typeLevelProgramming-0.1.0.0-J4CTAQHxllb28ApTmyIIYP-typeLevelProgramming"
-dynlibdir  = "/Users/alokpandey/Haskell/Type Level Programming/typeLevelProgramming/.stack-work/install/x86_64-osx/lts-12.13/8.4.3/lib/x86_64-osx-ghc-8.4.3"
-datadir    = "/Users/alokpandey/Haskell/Type Level Programming/typeLevelProgramming/.stack-work/install/x86_64-osx/lts-12.13/8.4.3/share/x86_64-osx-ghc-8.4.3/typeLevelProgramming-0.1.0.0"
-libexecdir = "/Users/alokpandey/Haskell/Type Level Programming/typeLevelProgramming/.stack-work/install/x86_64-osx/lts-12.13/8.4.3/libexec/x86_64-osx-ghc-8.4.3/typeLevelProgramming-0.1.0.0"
-sysconfdir = "/Users/alokpandey/Haskell/Type Level Programming/typeLevelProgramming/.stack-work/install/x86_64-osx/lts-12.13/8.4.3/etc"
+bindir     = "/Users/alokpandey/Haskell/TypeLevelBook/.stack-work/install/x86_64-osx/lts-12.13/8.4.3/bin"
+libdir     = "/Users/alokpandey/Haskell/TypeLevelBook/.stack-work/install/x86_64-osx/lts-12.13/8.4.3/lib/x86_64-osx-ghc-8.4.3/typeLevelProgramming-0.1.0.0-J4CTAQHxllb28ApTmyIIYP-typeLevelProgramming"
+dynlibdir  = "/Users/alokpandey/Haskell/TypeLevelBook/.stack-work/install/x86_64-osx/lts-12.13/8.4.3/lib/x86_64-osx-ghc-8.4.3"
+datadir    = "/Users/alokpandey/Haskell/TypeLevelBook/.stack-work/install/x86_64-osx/lts-12.13/8.4.3/share/x86_64-osx-ghc-8.4.3/typeLevelProgramming-0.1.0.0"
+libexecdir = "/Users/alokpandey/Haskell/TypeLevelBook/.stack-work/install/x86_64-osx/lts-12.13/8.4.3/libexec/x86_64-osx-ghc-8.4.3/typeLevelProgramming-0.1.0.0"
+sysconfdir = "/Users/alokpandey/Haskell/TypeLevelBook/.stack-work/install/x86_64-osx/lts-12.13/8.4.3/etc"
 
 getBinDir, getLibDir, getDynLibDir, getDataDir, getLibexecDir, getSysconfDir :: IO FilePath
 getBinDir = catchIO (getEnv "typeLevelProgramming_bindir") (\_ -> return bindir)
