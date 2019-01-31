@@ -26,7 +26,7 @@ five_ = 5
 
 {-- Type equalities form an equivalence relation, meaning
  -- reflexivity—a type is always equal to itself: a ∼ a
- -- symmetry—a ∼bholdsifandonlyifb ∼a
+ -- symmetry— a∼b holds if and only if b ∼a
  -- transitivity—if we know both a ∼ b and b ∼ c,
     we (and GHC) can infer that a ∼ c.
 --}

@@ -20,6 +20,7 @@ import Data.Kind (Type)
 
 import Data.Data
 import Data.String -- better use other 
+import Control.Monad (join)
 
 
 
@@ -27,17 +28,25 @@ import Data.String -- better use other
 data (a :: k1) :<< (b :: k2)
 infixr 5 :<<
 
+-- Combine two :<< types 
+data (a :: k1) :<|> (b :: k2)
+infixr 5 :<|>
 
+
+  
+  
 -- Associated Type Class 
 class HasPrintf a where
   type Printf a :: Type -- Associate Type
   format :: String -> Proxy a -> Printf a 
 
 -- # base instance
--- no parameter; just append final string to desired types i.e String in thsi case
+-- as our schema "... :<< "symbol" " alwasy end with SYMBOL, make it our base case
+-- at end of Schema this instance will be applied
+-- no type level recursion to be done hence just return our desired outout type String 
 instance forall a. KnownSymbol a => HasPrintf (a :: Symbol) where
   type Printf a = String
-  format s _ = s  <> symbolVal (Proxy @a) -- Proxy :: Proxy a -- wriiten as Proxy @a using -XTpeApplicatons
+  format s _ = s  <> symbolVal (Proxy @a) -- Proxy :: Proxy a -- wriiten as Proxy @a using -XTypeApplications
 --                    ^ will need KnownSymbol class constraint
 
 -- # text Instance
@@ -54,6 +63,12 @@ instance (HasPrintf a, Show param) => HasPrintf ((param :: Type) :<< a) where
 
 
 
+-- # stringInstance with String type parameter 
+instance {-# OVERLAPPING #-} HasPrintf a
+    => HasPrintf (String :<< a) where
+  type Printf (String :<< a) = String -> Printf a
+  format s _ param = format (s <> param) (Proxy @a)
+
 
 printf :: HasPrintf a => Proxy a -> Printf a 
 printf = format "" 
@@ -67,13 +82,18 @@ instance (HasPrintf a, KnownNat num) => HasPrintf ((num :: Nat) :<< a) where
 
 
 
+
 data User = User { name :: String
                  , age  :: Integer
                  , id   :: Maybe Integer
                  } deriving (Show, Eq, Data, Typeable)
 
 
-data D = X Int | Y Int Int
-  deriving (Data,Typeable)
 
-result = show $ toConstr (X 3)
+
+result = show $ toConstr (User "a" 2 (Just 2))
+
+
+
+
+

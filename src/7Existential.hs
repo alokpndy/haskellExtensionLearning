@@ -10,6 +10,8 @@ import Data.Dynamic
 import Data.Typeable
 import Data.Monoid 
 import Data.Coerce
+import Data.IORef
+import System.IO.Unsafe
 
 data Any1 = forall a. Any1 a
 -- ^ ANy can store any type but we type constructor cannot tell
@@ -84,5 +86,25 @@ elimRunner f (Runner a) = f a
 fromRunner :: Typeable a => Runner -> Maybe a
 fromRunner = elimRunner cast
 
+
+
+
+-- | ST TRICK
+newtype ST s a = ST { unsafeRunST :: a }
+
+instance Functor (ST s) where
+  fmap f (ST a) = seq a . ST $ f a
+
+instance Applicative (ST s) where
+  pure = ST
+  ST f <*> ST a = seq f . seq a . ST $ f a
+
+instance Monad (ST s) where
+  ST a >>= f = seq a $ f a
+
+newtype STRef s a = STRef { unSTRef :: IORef a }
+
+newSTRef :: a -> ST s (STRef s a)
+newSTRef = pure . STRef .  unsafePerformIO  . newIORef
 
 

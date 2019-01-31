@@ -74,3 +74,4 @@ typeName = show . typeRep $ Proxy @a
 
 sizeOf  :: forall a. Show a =>  Int
 sizeOf  =  3
+

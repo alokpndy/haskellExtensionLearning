@@ -4,6 +4,8 @@ module Variance where
 
 -- | Covariant
 {-- Any function a -> b can be lifted into a function T a -> T b.--}
+mymap :: Functor f => (a -> b) -> f a -> f b
+mymap f yf = fmap f yf 
 
 -- | Contravariant
 {-- Any function a -> b can be lifted into a function T b -> T a.--}

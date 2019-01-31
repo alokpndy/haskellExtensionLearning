@@ -91,12 +91,20 @@ data TicTacToe2 a = TicTacToe2
 emptyBoard2 :: TicTacToe2 (Maybe Bool)
 emptyBoard2 =
   TicTacToe2 $ const $ const Nothing
+
+
+
+
+  -- #  antidistributive law in Curry-Howard Isomorphism
+
+  -- | (a ∨ b) ⇒ c ≡ (a ⇒ c) ∧ (b ⇒ c)
+   Either a b -> c = ((a -> c), (b -> c))
+
+  -- | (a ∧ b) ⇒ c ≡ (a ⇒ c) ∨ (b ⇒ c)
+       (a, b) -> c = Either (a -> c) (b -> c)
+
   
 
-winnerBoard :: TicTacToe2 ( Maybe Bool)
-winnerBoard =
-  TicTacToe2 $ (const . (const . test)) (Just True) 
-  
 
-test :: Three -> Three -> Maybe Bool
-test x y =  if (==) x y then Just True else Nothing
+
+

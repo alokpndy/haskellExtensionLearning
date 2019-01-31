@@ -1,4 +1,7 @@
 
+{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE PolyKinds #-}
+
 -- # pragmas
 {-# LANGUAGE DataKinds     #-}
 {-# LANGUAGE TypeFamilies     #-}
@@ -45,7 +48,9 @@ oor False y = y
 type family Oor (x :: Bool) (y :: Bool) :: Bool where
 -- ^ type family do not support currying    ^ return kind
   Oor 'True y = 'True
-  Oor 'False y = y 
+  Oor 'False y = y
+
+
 
 {-- Will not work as partial application is not supported
 -- No currying i.e all argument must be supplied at a time
@@ -54,13 +59,16 @@ type family MMap (x :: a -> b) ( i :: [a]) :: [b] where
   MMap f (y ': ys) = f y ': MMap f ys
 --}  
 
--- | type family Bar x y :: Bool -> Bool -> Bool where
---                          -------------------- < return type a function 
--- Bar :: TYPE -> TYPE -> Bool -> Bool -> Bool
-
-
-
+type family Or (x :: Bool) (y :: Bool) :: Bool where
+  Or 'True  y = 'True
+  Or 'False y = y
   
 
+type family Map (x :: a -> b) (i :: [a]) :: [b] where
+  Map f '[]       = '[]
+  Map f (x ': xs) = f x ': Map f xs
 
-
+-- Mu if HIgher Order fixpoint operator 
+data Mu f a = Roll (f (Mu f) a)  
+data ListF f a = Nil | Cons a (f a)
+type List a = Mu ListF a
