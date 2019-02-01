@@ -20,7 +20,7 @@ data DoorState = Opened | Closed | Locked
 
 data Door :: DoorState -> Type where
   UnsafeMkDoor :: forall s.  {doorMaterial :: String } -> Door s
-  --                                            ^ is called indexed data type
+  --                                                       ^called indexed data type
   -- s will be decided by caller
   
 closeDoor :: Door 'Opened -> Door 'Closed
@@ -68,7 +68,7 @@ doorStatus SLocked _ = Locked
 
 -- | Recoverig Implicit Passing
 
--- ie automatically ass witness
+-- ie automatically pass witness
 class SingDSI s where
   singDS :: SingDS s
 

@@ -64,9 +64,12 @@ eval_ (Equ_ y1 y2) = eval_ y1 == eval_ y2
 
 -- | Hetrogeneous List
 
--- ts has kind [TYPE]
+type family AllEq (ts :: [Type]) :: Constraint where
+  AllEq '[] = ()
+  AllEq (x ': xs) = (Eq x,  AllEq xs)
+
 data HList (ts :: [Type]) where
-  HNil :: HList '[]  -- (ts ~ '[])
+  HNil :: HList '[]
   (:#) :: t -> HList ts -> HList (t ': ts)
 infixr 5 :#
 
@@ -74,16 +77,20 @@ hLength :: HList ts -> Int
 hLength HNil = 0
 hLength (_ :# ts) = 1 + hLength ts
 
-hHead :: HList (t ': ts) -> t
-hHead (t :# _) = t
 
+headH :: HList (t ': ts) -> t
+headH (t :# _) = t 
+-- headH $ (:#) (Just "Alok") (HNil)
 
+-- using constraintkinds
+type family All (c :: Type -> Constraint) (ts :: [Type]) :: Constraint where
+  All c '[] = ()
+  All c (t ': ts) = (c t, All c ts) 
+-- Now we can write
+instance All Eq ts => Eq (HList ts) where
+  HNil == HNil = True
+  (a :# as) == (b :# bs) = a == b && as == bs
 
-data Nat = Zero | Succ Nat deriving Show
-type family Add (m :: Nat) (n :: Nat) :: Nat where
-  Add Zero n = n
-  Add (Succ m) n = Add m (Succ n)
+hls = (:#) 1 :# Nothing :# HNil
 
-data SNat :: Nat -> * where
-  Zy :: SNat Zero
-  Suc :: SNat m -> SNat (Succ m)
+  

@@ -5,6 +5,10 @@
 
 module RankN where
 
+import Data.Functor
+import Control.Applicative
+import Control.Monad 
+
 -- | Endomorphism - The functions which takes and return the same type
 -- eg not :: Bool -> Bool, show @String :: String -> String
 
@@ -30,18 +34,43 @@ foo f = f 2
 -- number of arrows its deepest forall is to the left of.
 
 
-cont :: a -> (forall r. (a -> r) -> r)
-cont a = \callback -> callback a
 
-first :: (Enum a, Enum b) =>(forall x. Enum x => x -> x) -> a -> b -> (a,b)
-first f x y  = (f x, f y) 
 
--- head is of Rank 1 
-bd :: (forall a. ([a] -> a)) 
-bd  (x : xs)  = x
--- bd :: (forall a. ([a] -> a)) -> Int  ---- Rank 2 but for func  f it is 1
--- forall x. (x -> x) -> Int   -- Rank of f = 0 
+-- | Continuation Passing Style CPS
+-- The type  forall r. (a  -> r) -> r is know to be in continuation passing style 
+cont :: a ->  forall r. (a  -> r) -> r
+cont  a = \callback -> callback a
+--        \ ( a -> r ) a
+--        \ r -> r
 
-addCustom :: Num a => a -> a
-addCustom a = a + a
+runCont :: (forall r. (a -> r) -> r) -> a
+runCont f = f id  
+
+newtype Cont a = Cont { unCont :: forall r. (a -> r) -> r }
+
+instance Functor Cont where 
+  fmap f (Cont ca)  = Cont $  \r -> (ca (r . f))
+
+instance Applicative Cont where
+  pure a = Cont $ \c -> c a
+  Cont f <*> Cont a = Cont $ \br -> f $ \ab -> a $ br . ab
+
+
+instance Monad Cont where
+  return = pure
+  Cont m >>= f = Cont $ \c -> m $ \a -> unCont (f a) c
+
+
+doLater :: String 
+doLater  = runCont $  unCont $ do 
+  d <- Cont dob
+  s <- Cont so
+  pure $ (show d) ++ (show s) 
+
+ 
+dob ::  forall r.  (Int -> r) -> r
+dob f = f 6 
+so ::  forall r.  (Double -> r) -> r
+so f = f 1.0
+
 
