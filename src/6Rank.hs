@@ -1,4 +1,4 @@
-{-# LANGUAGE ScopedTypeVariables  #-}
+{-# LANGUAGE ScopedTypeVariables  #-}  -- fmap @((->)_) :: (a -> b) -> (w -> a) -> w -> b
 {-# LANGUAGE TypeApplications  #-}
 
 {-# LANGUAGE RankNTypes #-}
