@@ -18,7 +18,7 @@ import Data.Kind
 import Data.Kind (Type)
 import GHC.Generics
 import Data.Functor.Identity
-
+import Data.IORef
 
 
 -- | You loose your type forever, so do they

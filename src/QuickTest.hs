@@ -1,4 +1,4 @@
-{-# LANGUAGE TypeInType #-}
+Ty{-# LANGUAGE TypeInType #-}
 
 {-# LANGUAGE RankNTypes #-}
 {-# LANGUAGE TypeOperators #-}

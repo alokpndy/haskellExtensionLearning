@@ -1,5 +1,6 @@
+{-# LANGUAGE UndecidableInstances #-}
 
-{-# LANGUAGE TypeOperators #-}
+{-# LANGUAGE TypeOperators #-} -- used to perform arithmetic opetations on NAT
 {-# LANGUAGE PolyKinds #-}
 
 -- # pragmas
@@ -12,7 +13,7 @@ module Kind where
 -- # imports
 import GHC.TypeLits
 import Data.Proxy (Proxy (..))
-
+import Data.Kind
 
 {-- Terms are value we can manipuate, the things exist at runtime
     Types are proofs to compiler and ourselves
@@ -35,6 +36,31 @@ import Data.Proxy (Proxy (..))
 
 -- | Data Kinds
 -- -XDataKinds lifts data constructors into type constructors and types into kinds.
+
+
+data UserType = User | Admin deriving Show
+data User1 = User1 { userName :: Maybe (Proxy 'Admin) }  deriving Show
+us = User1 (Just (Proxy )) 
+
+type family DoSen (f :: *) :: Bool where
+  DoSen (a -> b )  = True
+  DoSen (a)  = False 
+
+
+type family OneList (x :: [Nat]) :: Nat where 
+  OneList '[] = 0
+  OneList (x ': xs) = 1 + OneList xs
+
+
+type family PrettyPrintList (vs :: [k]) :: ErrorMessage where
+  PrettyPrintList '[]       = 'Text ""
+  PrettyPrintList '[a]      = ShowTypeQuoted a
+  PrettyPrintList '[a, b]   = ShowTypeQuoted a ':<>: 'Text ", and " ':<>: ShowTypeQuoted b
+  PrettyPrintList (a ': vs) = ShowTypeQuoted a ':<>: 'Text ", " ':<>: PrettyPrintList vs
+
+type family ShowTypeQuoted (t :: k) :: ErrorMessage where
+  ShowTypeQuoted (t :: Symbol) = 'ShowType t
+  ShowTypeQuoted t             = 'Text "'" ':<>: 'ShowType t ':<>: 'Text "'"
 
 -- closed type families -- think as functions like AppendSymbol
 -- | Using -XTypeFamilies we can promote regular function (term level function)
@@ -72,3 +98,40 @@ type family Map (x :: a -> b) (i :: [a]) :: [b] where
 data Mu f a = Roll (f (Mu f) a)  
 data ListF f a = Nil | Cons a (f a)
 type List a = Mu ListF a
+
+
+type family ClosedComp (a :: Nat) (b:: Nat) :: Ordering where 
+  ClosedComp x y = CmpNat x y
+  --             ^ RHS of equation is funcction hence GHC cannot figure if
+                 -- it will ever terminate, hence -XUndecidableInstances
+
+
+type family Ops (x :: Bool) :: Bool where 
+  Ops 'True = 'False
+  Ops 'False = 'True 
+
+
+
+
+type family Where (c :: k -> Constraint) (ts :: [Type]) :: Constraint where
+  Where c '[] = ()
+  Where c (t ': ts) = (c t, Where c ts)
+
+
+
+
+class Numberish a where
+  fromNumber :: Integer -> a
+  toNumber :: a -> Integer
+  toNumber a = 100 
+
+  {-# MINIMAL fromNumber #-}
+  
+newtype Age a =
+  Age a deriving (Eq, Show)
+
+instance (Integral a) => Numberish (Age a) where
+  fromNumber n = Age (fromInteger n)
+  toNumber (Age n) = (fromIntegral n)
+
+

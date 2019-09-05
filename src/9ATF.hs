@@ -37,43 +37,45 @@ class HasPrintf a where   -- type class HasPrintf
   format :: String -> Proxy a -> Printf a  -- :: a :<< ... :<< "symbol"
 
   
--- | base Instance
+-- | base Instance -- printf (Proxy @("only string"))
 
 -- Correspond to havinf no more parameter
 -- We return our desired output type a - String here 
 instance forall a. KnownSymbol a => HasPrintf (a :: Symbol) where
   type Printf a = String
-  format s _ = s <> symbolVal (Proxy @a)
+  format s _ = s <> " base " <>symbolVal (Proxy @a)
 
 
 -- case where we want to insert additional text in our final formatted string
 -- we do not have parameter to consume 
 -- Hence we do not change resulting simpler type of Printf
 
--- # textInstance
+-- | textInstance  -- printf (Proxy @("one" :<< "two"))
 instance (HasPrintf a, KnownSymbol text)
     => HasPrintf ((text :: Symbol) :<< a) where
   type Printf (text :<< a) = Printf a
-  format s _ = format (s <> symbolVal (Proxy @text))
+  format s _ = format (s <> " 2nd case " <> symbolVal (Proxy @text))
                       (Proxy @a)
 
+-- | printf (Proxy @(Int :<< "two"))
 -- # paramInstance
 instance (HasPrintf a, Show param)
     => HasPrintf ((param :: Type) :<< a) where
   type Printf (param :<< a) = param -> Printf a
-  format s _ param = format (s <> show param) (Proxy @a)
+  format s _ param = format (s <> " 3rd case " <> show param) (Proxy @a)
 
 printf :: HasPrintf a => Proxy a -> Printf a
 printf = format ""
   
 
+-- | printf (Proxy @(String :<< "two"))
 -- # stringInstance using XFlexibleInstances
 -- select this instance instead of 3rd when param is String
 -- i.e param :<< a to String :<< a 
 instance {-# OVERLAPPING #-} HasPrintf a
     => HasPrintf (String :<< a) where
   type Printf (String :<< a) = String -> Printf a
-  format s _ param = format (s <> param) (Proxy @a)
+  format s _ param = format (s <> " Overlapping "<>param) (Proxy @a)
 
 
 

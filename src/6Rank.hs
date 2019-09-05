@@ -74,3 +74,34 @@ so ::  forall r.  (Double -> r) -> r
 so f = f 1.0
 
 
+
+
+
+
+--cps :: String
+cps =
+  \x -> id ( \y -> id (\z -> (,,) x y z) )  
+
+
+
+
+
+
+
+
+--- Continuation
+make :: a -> forall r. ((forall a. (a -> r)) -> r)
+make a = \callback -> callback a    
+
+double :: (Double -> r) -> r 
+double f =  f 1.0
+
+stir :: (String -> r) -> r
+stir f = f "one"
+
+
+rust :: (forall r. (String -> r) -> r)
+rust = unCont $ do
+  v <- Cont double
+  s <- Cont stir
+  pure (s ++ show v) 

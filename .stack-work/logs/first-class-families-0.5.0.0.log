@@ -1,0 +1,16 @@
+Configuring first-class-families-0.5.0.0...
+clang: warning: argument unused during compilation: '-nopie' [-Wunused-command-line-argument]
+Preprocessing library for first-class-families-0.5.0.0..
+Building library for first-class-families-0.5.0.0..
+[1 of 9] Compiling Fcf.Core         ( src/Fcf/Core.hs, .stack-work/dist/x86_64-osx/Cabal-2.2.0.1/build/Fcf/Core.o )
+[2 of 9] Compiling Fcf.Combinators  ( src/Fcf/Combinators.hs, .stack-work/dist/x86_64-osx/Cabal-2.2.0.1/build/Fcf/Combinators.o )
+[3 of 9] Compiling Fcf.Classes      ( src/Fcf/Classes.hs, .stack-work/dist/x86_64-osx/Cabal-2.2.0.1/build/Fcf/Classes.o )
+[4 of 9] Compiling Fcf.Data.Common  ( src/Fcf/Data/Common.hs, .stack-work/dist/x86_64-osx/Cabal-2.2.0.1/build/Fcf/Data/Common.o )
+[5 of 9] Compiling Fcf.Utils        ( src/Fcf/Utils.hs, .stack-work/dist/x86_64-osx/Cabal-2.2.0.1/build/Fcf/Utils.o )
+[6 of 9] Compiling Fcf.Data.Bool    ( src/Fcf/Data/Bool.hs, .stack-work/dist/x86_64-osx/Cabal-2.2.0.1/build/Fcf/Data/Bool.o )
+[7 of 9] Compiling Fcf.Data.Nat     ( src/Fcf/Data/Nat.hs, .stack-work/dist/x86_64-osx/Cabal-2.2.0.1/build/Fcf/Data/Nat.o )
+[8 of 9] Compiling Fcf.Data.List    ( src/Fcf/Data/List.hs, .stack-work/dist/x86_64-osx/Cabal-2.2.0.1/build/Fcf/Data/List.o )
+[9 of 9] Compiling Fcf              ( src/Fcf.hs, .stack-work/dist/x86_64-osx/Cabal-2.2.0.1/build/Fcf.o )
+ignoring (possibly broken) abi-depends field for packages
+Installing library in /Users/alokpandey/Haskell/TypeLevelBook/.stack-work/install/x86_64-osx/lts-12.13/8.4.3/lib/x86_64-osx-ghc-8.4.3/first-class-families-0.5.0.0-8AHGZHbMhGK7nXpqNT9ARY
+Registering library for first-class-families-0.5.0.0..

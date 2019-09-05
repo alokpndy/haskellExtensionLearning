@@ -22,6 +22,17 @@
   (major1) == 4 && (major2) == 11 && (minor) <= 1)
 #endif /* MIN_VERSION_base */
 
+/* package first-class-families-0.5.0.0 */
+#ifndef VERSION_first_class_families
+#define VERSION_first_class_families "0.5.0.0"
+#endif /* VERSION_first_class_families */
+#ifndef MIN_VERSION_first_class_families
+#define MIN_VERSION_first_class_families(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  5 || \
+  (major1) == 0 && (major2) == 5 && (minor) <= 0)
+#endif /* MIN_VERSION_first_class_families */
+
 /* tool alex-3.2.4 */
 #ifndef TOOL_VERSION_alex
 #define TOOL_VERSION_alex "3.2.4"
@@ -110,6 +121,17 @@
   (major1) == 0 && (major2) == 68 && (minor) <= 3)
 #endif /* MIN_TOOL_VERSION_hsc2hs */
 
+/* tool pkg-config-0.29.2 */
+#ifndef TOOL_VERSION_pkg_config
+#define TOOL_VERSION_pkg_config "0.29.2"
+#endif /* TOOL_VERSION_pkg_config */
+#ifndef MIN_TOOL_VERSION_pkg_config
+#define MIN_TOOL_VERSION_pkg_config(major1,major2,minor) (\
+  (major1) <  0 || \
+  (major1) == 0 && (major2) <  29 || \
+  (major1) == 0 && (major2) == 29 && (minor) <= 2)
+#endif /* MIN_TOOL_VERSION_pkg_config */
+
 /* tool runghc-8.4.3 */
 #ifndef TOOL_VERSION_runghc
 #define TOOL_VERSION_runghc "8.4.3"
@@ -122,7 +144,7 @@
 #endif /* MIN_TOOL_VERSION_runghc */
 
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "typeLevelProgramming-0.1.0.0-J4CTAQHxllb28ApTmyIIYP-typeLevelProgramming"
+#define CURRENT_COMPONENT_ID "typeLevelProgramming-0.1.0.0-5Xw5gkoWhKvE2Sm5A0VwZX-typeLevelProgramming"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.1.0.0"

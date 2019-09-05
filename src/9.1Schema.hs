@@ -55,6 +55,7 @@ instance (HasPrintf a, KnownSymbol text) => HasPrintf ((text :: Symbol) :<< a) w
   type Printf (text :<< a)  = Printf a
   format s _ = format (s  <> symbolVal (Proxy @text)) (Proxy @a)
 
+
 -- # parameter Instance
 -- return Printf type and can continue later -- end it by case 1 i.e supplying string
 instance (HasPrintf a, Show param) => HasPrintf ((param :: Type) :<< a) where
@@ -97,3 +98,31 @@ result = show $ toConstr (User "a" 2 (Just 2))
 
 
 
+
+
+
+
+
+
+class HasSchema a where
+  type Schema a :: Type
+  change :: String -> Proxy a -> Schema a
+
+instance KnownSymbol a => HasSchema (a :: Symbol ) where
+  type Schema a = String
+  change s _ = s <> symbolVal (Proxy @a) 
+  
+instance (HasSchema a, KnownSymbol s) => HasSchema ((s :: Symbol) :<< a) where
+  type Schema (s :<< a) = Schema a
+  change s _ = change (s <> symbolVal (Proxy @s)) (Proxy @a)
+
+instance (HasSchema a, Show p) => HasSchema ((p :: Type) :<< a) where
+  type Schema (p :<< a) = p -> Schema a
+  change s _ p = change (s <> show p) (Proxy @a)
+
+hasf :: HasSchema a => Proxy a -> Schema a 
+hasf = change "" 
+
+instance (HasSchema a, KnownNat s) => HasSchema ((s :: Nat) :<< a) where
+  type Schema (s :<< a) = Schema a
+  change s _ = change (s <> (show . natVal) (Proxy @s)) (Proxy @a) 

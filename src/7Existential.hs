@@ -1,3 +1,5 @@
+{-# LANGUAGE ConstraintKinds #-}
+{-# LANGUAGE KindSignatures #-}
 
 {-# LANGUAGE ExistentialQuantification #-}
 {-# LANGUAGE GADTs #-}
@@ -12,6 +14,9 @@ import Data.Monoid
 import Data.Coerce
 import Data.IORef
 import System.IO.Unsafe
+import Data.Kind
+--import Control.Monad.ST
+--import   Data.STRef
 
 data Any1 = forall a. Any1 a
 -- ^ ANy can store any type but we type constructor cannot tell
@@ -50,7 +55,14 @@ elimelimDynamic
 elimelimDynamic f (Tynamic a) = f a
 
 
+data Has (c :: Type -> Constraint) where
+  Has :: c t => t -> Has c
 
+elimHas :: (forall a. c a => a -> r) -> Has c -> r
+elimHas f (Has a) = f a 
+
+type HasSHow = Has Show
+type HasTynamic = Has Typeable
 
 
 slower :: [Int] -> Int
@@ -88,7 +100,7 @@ fromRunner = elimRunner cast
 
 
 
-
+{-
 -- | ST TRICK
 newtype ST s a = ST { unsafeRunST :: a }
 
@@ -107,4 +119,35 @@ newtype STRef s a = STRef { unSTRef :: IORef a }
 newSTRef :: a -> ST s (STRef s a)
 newSTRef = pure . STRef .  unsafePerformIO  . newIORef
 
+readSTRef :: STRef s a -> ST s a
+readSTRef =
+  pure . unsafePerformIO . readIORef . unSTRef
 
+writeSTRef :: STRef s a -> a -> ST s ()
+writeSTRef ref =
+  pure . unsafePerformIO . writeIORef (unSTRef ref)
+
+modifySTRef :: STRef s a -> (a -> a) -> ST s ()
+modifySTRef ref f = do
+  a <- readSTRef ref
+  writeSTRef ref $ f a
+
+safe :: ST s String
+safe = do
+  ref <- newSTRef "Hello"
+  modifySTRef ref (++ " World")
+  readSTRef ref
+
+runn = unsafeRunST safe 
+  
+  
+
+dool = do
+  m <- newIORef (10 :: Int)
+  modifyIORef m (2 *)
+  readIORef  m >>= print
+  writeIORef m 0
+  readIORef  m >>= print
+
+  
+-}

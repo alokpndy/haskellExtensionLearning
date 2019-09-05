@@ -95,16 +95,48 @@ emptyBoard2 =
 
 
 
-  -- #  antidistributive law in Curry-Howard Isomorphism
-
-  -- | (a ∨ b) ⇒ c ≡ (a ⇒ c) ∧ (b ⇒ c)
-   Either a b -> c = ((a -> c), (b -> c))
-
-  -- | (a ∧ b) ⇒ c ≡ (a ⇒ c) ∨ (b ⇒ c)
-       (a, b) -> c = Either (a -> c) (b -> c)
 
   
 
 
 
 
+-- |SWift
+{-             T is called type parameter 
+    func swap <T> (_ a: inout T, _ b: inout T) {
+        let tempA = a
+        a = b
+        b tempA
+    }
+-}
+-- |Haskell
+swap :: Num a =>  a -> a -> a
+swap a b = a + b
+
+-- |SWIFT
+{-   
+    struct Stack<Element> {
+    var items = [Element]()
+    mutating func push(_ item: Element) {
+        items.append(item)
+    }
+    mutating func pop() -> Element {
+        return items.removeLast()
+    }
+}
+
+var stackOfStrings = Stack<String>()
+
+-- extend a generic type, you don’t provide a type parameter
+-- the type parameter from the originalis available
+
+    extension Stack {
+        var topItem: Element? {
+            return items.isEmpty ? nil : items[items.count - 1]
+        }
+    }
+-}
+
+
+ 
+  

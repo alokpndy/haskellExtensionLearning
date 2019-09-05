@@ -7,3 +7,6 @@
 :set -XAllowAmbiguousTypes
 :set -XScopedTypeVariables
 :set -XDataKinds 
+:set -XTypeOperators
+:set -XGADTs
+:set -XRankNTypes

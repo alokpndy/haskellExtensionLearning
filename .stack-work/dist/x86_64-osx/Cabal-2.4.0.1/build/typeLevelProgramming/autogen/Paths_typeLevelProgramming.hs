@@ -29,12 +29,12 @@ version :: Version
 version = Version [0,1,0,0] []
 bindir, libdir, dynlibdir, datadir, libexecdir, sysconfdir :: FilePath
 
-bindir     = "/Users/alokpandey/Haskell/Type Level Programming/typeLevelProgramming/.stack-work/install/x86_64-osx/lts-13.0/8.6.3/bin"
-libdir     = "/Users/alokpandey/Haskell/Type Level Programming/typeLevelProgramming/.stack-work/install/x86_64-osx/lts-13.0/8.6.3/lib/x86_64-osx-ghc-8.6.3/typeLevelProgramming-0.1.0.0-LwQ6rDgGp8N1IZW5tZ7z0k-typeLevelProgramming"
-dynlibdir  = "/Users/alokpandey/Haskell/Type Level Programming/typeLevelProgramming/.stack-work/install/x86_64-osx/lts-13.0/8.6.3/lib/x86_64-osx-ghc-8.6.3"
-datadir    = "/Users/alokpandey/Haskell/Type Level Programming/typeLevelProgramming/.stack-work/install/x86_64-osx/lts-13.0/8.6.3/share/x86_64-osx-ghc-8.6.3/typeLevelProgramming-0.1.0.0"
-libexecdir = "/Users/alokpandey/Haskell/Type Level Programming/typeLevelProgramming/.stack-work/install/x86_64-osx/lts-13.0/8.6.3/libexec/x86_64-osx-ghc-8.6.3/typeLevelProgramming-0.1.0.0"
-sysconfdir = "/Users/alokpandey/Haskell/Type Level Programming/typeLevelProgramming/.stack-work/install/x86_64-osx/lts-13.0/8.6.3/etc"
+bindir     = "/Users/alokpandey/Haskell/TypeLevelBook/.stack-work/install/x86_64-osx/a05cb05f7869fafed2d6b3f2c249ecc678c1eb224893af5c9dce9784ae844c13/8.6.5/bin"
+libdir     = "/Users/alokpandey/Haskell/TypeLevelBook/.stack-work/install/x86_64-osx/a05cb05f7869fafed2d6b3f2c249ecc678c1eb224893af5c9dce9784ae844c13/8.6.5/lib/x86_64-osx-ghc-8.6.5/typeLevelProgramming-0.1.0.0-ncOWy6SFOcKe6RWemwcqd-typeLevelProgramming"
+dynlibdir  = "/Users/alokpandey/Haskell/TypeLevelBook/.stack-work/install/x86_64-osx/a05cb05f7869fafed2d6b3f2c249ecc678c1eb224893af5c9dce9784ae844c13/8.6.5/lib/x86_64-osx-ghc-8.6.5"
+datadir    = "/Users/alokpandey/Haskell/TypeLevelBook/.stack-work/install/x86_64-osx/a05cb05f7869fafed2d6b3f2c249ecc678c1eb224893af5c9dce9784ae844c13/8.6.5/share/x86_64-osx-ghc-8.6.5/typeLevelProgramming-0.1.0.0"
+libexecdir = "/Users/alokpandey/Haskell/TypeLevelBook/.stack-work/install/x86_64-osx/a05cb05f7869fafed2d6b3f2c249ecc678c1eb224893af5c9dce9784ae844c13/8.6.5/libexec/x86_64-osx-ghc-8.6.5/typeLevelProgramming-0.1.0.0"
+sysconfdir = "/Users/alokpandey/Haskell/TypeLevelBook/.stack-work/install/x86_64-osx/a05cb05f7869fafed2d6b3f2c249ecc678c1eb224893af5c9dce9784ae844c13/8.6.5/etc"
 
 getBinDir, getLibDir, getDynLibDir, getDataDir, getLibexecDir, getSysconfDir :: IO FilePath
 getBinDir = catchIO (getEnv "typeLevelProgramming_bindir") (\_ -> return bindir)

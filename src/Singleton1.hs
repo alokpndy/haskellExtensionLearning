@@ -85,3 +85,8 @@ lockAnyDoor_ = lockAnyDoor singDS
 
 
 -- $  :t lockAnyDoor_ (UnsafeMkDoor @ 'Opened "Wood")
+
+
+
+
+

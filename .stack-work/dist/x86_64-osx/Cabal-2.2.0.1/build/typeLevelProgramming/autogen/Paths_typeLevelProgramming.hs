@@ -30,7 +30,7 @@ version = Version [0,1,0,0] []
 bindir, libdir, dynlibdir, datadir, libexecdir, sysconfdir :: FilePath
 
 bindir     = "/Users/alokpandey/Haskell/TypeLevelBook/.stack-work/install/x86_64-osx/lts-12.13/8.4.3/bin"
-libdir     = "/Users/alokpandey/Haskell/TypeLevelBook/.stack-work/install/x86_64-osx/lts-12.13/8.4.3/lib/x86_64-osx-ghc-8.4.3/typeLevelProgramming-0.1.0.0-J4CTAQHxllb28ApTmyIIYP-typeLevelProgramming"
+libdir     = "/Users/alokpandey/Haskell/TypeLevelBook/.stack-work/install/x86_64-osx/lts-12.13/8.4.3/lib/x86_64-osx-ghc-8.4.3/typeLevelProgramming-0.1.0.0-5Xw5gkoWhKvE2Sm5A0VwZX-typeLevelProgramming"
 dynlibdir  = "/Users/alokpandey/Haskell/TypeLevelBook/.stack-work/install/x86_64-osx/lts-12.13/8.4.3/lib/x86_64-osx-ghc-8.4.3"
 datadir    = "/Users/alokpandey/Haskell/TypeLevelBook/.stack-work/install/x86_64-osx/lts-12.13/8.4.3/share/x86_64-osx-ghc-8.4.3/typeLevelProgramming-0.1.0.0"
 libexecdir = "/Users/alokpandey/Haskell/TypeLevelBook/.stack-work/install/x86_64-osx/lts-12.13/8.4.3/libexec/x86_64-osx-ghc-8.4.3/typeLevelProgramming-0.1.0.0"
